@@ -20,7 +20,7 @@ public class RankingGourmet {
     private int quantitat;
     private int preu;
 
-    // Getter calculat
+    // Getter calculats
     public double getMitjana() {
         return (menjar + rapidesa + quantitat + preu) / 4.0;
     }
