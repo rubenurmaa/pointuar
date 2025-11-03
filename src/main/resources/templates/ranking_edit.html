@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ranking Gourmet</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #8bc34a, #4caf50);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: rgba(255,255,255,0.95);
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 800px;
+        }
+        h2 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #444;
+        }
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        button, a.button {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            margin-top: 12px;
+            transition: background 0.2s, transform 0.1s;
+        }
+        button:hover, a.button:hover {
+            background-color: #256f29;
+            transform: translateY(-2px);
+        }
+        .message { text-align:center; margin-top:15px; font-weight:bold; color:#2a7a2e; }
+        .message.error { color:#c62828; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Editar Ranking Gourmet 🍽️</h2>
+
+	<form th:action="@{'/ranking/edit/' + ${ranking.id}}" th:object="${ranking}" method="post">
+	    <input type="hidden" th:field="*{id}" />
+
+	    <label for="nomLocal">Nom del local</label>
+	    <input type="text" id="nomLocal" th:field="*{nomLocal}" placeholder="Nom del restaurant" required>
+
+	    <label for="ubicacio">Ubicació</label>
+	    <input type="text" id="ubicacio" th:field="*{ubicacio}" placeholder="Població o adreça" required>
+
+		<label for="data">Data</label>
+		<input type="date" id="data" th:field="*{dataVisita}" required>
+
+	    <label for="menu">Menú menjat</label>
+	    <input type="text" id="menu" th:field="*{menu}" placeholder="Ex: Menú diari o carta">
+
+	    <label for="preuTotal">Preu total (€)</label>
+	    <input type="number" id="preuTotal" step="0.01" th:field="*{preuTotal}" placeholder="Ex: 15.50" required>
+
+	    <label for="menjar">Menjar (0-10)</label>
+	    <input type="number" id="menjar" min="0" max="10" th:field="*{menjar}" required>
+
+	    <label for="rapidesa">Rapidesa (0-10)</label>
+	    <input type="number" id="rapidesa" min="0" max="10" th:field="*{rapidesa}" required>
+
+	    <label for="quantitat">Quantitat (0-10)</label>
+	    <input type="number" id="quantitat" min="0" max="10" th:field="*{quantitat}" required>
+
+	    <label for="preu">Preu (0-10)</label>
+	    <input type="number" id="preu" min="0" max="10" th:field="*{preu}" required>
+
+	    <button type="submit">💾 Desar canvis</button>
+	    <a th:href="@{'/ranking/delete/' + ${ranking.id}}" class="button" style="background-color:#c62828; margin-top:5px;">🗑️ Eliminar</a>
+	</form>
+
+	<a th:href="@{/ranking/list}" class="button">🏠 Tornar al llistat</a>
+
+    <div class="message" th:if="${message}" th:text="${message}"></div>
+    <div class="message error" th:if="${error}" th:text="${error}"></div>
+</div>
+</body>
+</html>

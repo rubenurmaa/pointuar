@@ -1,0 +1,96 @@
+<style>
+body {
+    font-family: Tahoma, Verdana, sans-serif;
+    background-color: #008080; /* Fondo estilo Windows 95 */
+    color: black;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: #C0C0C0; /* Gris Windows */
+    border: 2px solid white;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+    padding: 15px;
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: inset -2px -2px #fff, inset 2px 2px #808080;
+}
+
+h1, h2 {
+    font-size: 16px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+input, select, button {
+    font-family: Tahoma, Verdana, sans-serif;
+    font-size: 14px;
+    padding: 3px;
+    margin: 5px 0;
+    border: 2px solid #fff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+    background-color: #C0C0C0;
+    color: black;
+    outline: none;
+}
+
+input:focus {
+    border-color: #0000FF;
+}
+
+button {
+    cursor: pointer;
+    box-shadow: inset -2px -2px #fff, inset 2px 2px #808080;
+}
+
+button:hover {
+    background-color: #808080;
+    color: white;
+}
+
+a {
+    color: #0000EE;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #FF0000;
+}
+
+.message {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Tabla estilo retro */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 2px solid #fff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+    padding: 5px;
+    text-align: center;
+    background-color: #C0C0C0;
+    font-size: 12px;
+}
+
+th {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+th:hover {
+    background-color: #808080;
+    color: white;
+}
+</style>
