@@ -1,96 +1,68 @@
-<style>
 body {
-    font-family: Tahoma, Verdana, sans-serif;
-    background-color: #008080; /* Fondo estilo Windows 95 */
-    color: black;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+    color: white;
     margin: 0;
-    padding: 20px;
-}
-
-.container {
-    background-color: #C0C0C0; /* Gris Windows */
-    border: 2px solid white;
-    border-right-color: #808080;
-    border-bottom-color: #808080;
-    padding: 15px;
-    width: 90%;
-    max-width: 400px;
-    margin: 20px auto;
-    box-shadow: inset -2px -2px #fff, inset 2px 2px #808080;
+    padding: 0;
 }
 
 h1, h2 {
-    font-size: 16px;
-    margin: 10px 0;
     text-align: center;
+    margin-top: 20px;
 }
 
-input, select, button {
-    font-family: Tahoma, Verdana, sans-serif;
-    font-size: 14px;
-    padding: 3px;
-    margin: 5px 0;
-    border: 2px solid #fff;
-    border-right-color: #808080;
-    border-bottom-color: #808080;
-    background-color: #C0C0C0;
-    color: black;
-    outline: none;
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
 
-input:focus {
-    border-color: #0000FF;
-}
-
-button {
-    cursor: pointer;
-    box-shadow: inset -2px -2px #fff, inset 2px 2px #808080;
-}
-
-button:hover {
-    background-color: #808080;
-    color: white;
-}
-
-a {
-    color: #0000EE;
-    text-decoration: underline;
-}
-
-a:hover {
-    color: #FF0000;
-}
-
-.message {
-    font-weight: bold;
-    margin-top: 10px;
-    text-align: center;
-}
-
-/* Tabla estilo retro */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 th, td {
-    border: 2px solid #fff;
-    border-right-color: #808080;
-    border-bottom-color: #808080;
-    padding: 5px;
-    text-align: center;
-    background-color: #C0C0C0;
-    font-size: 12px;
+    padding: 12px;
+    text-align: left;
 }
 
 th {
-    font-weight: bold;
-    cursor: pointer;
+    background: rgba(255,255,255,0.2);
 }
 
-th:hover {
-    background-color: #808080;
-    color: white;
+tr:nth-child(even) {
+    background: rgba(255,255,255,0.05);
 }
-</style>
+
+a, button {
+    color: white;
+    text-decoration: none;
+    background-color: #0066cc;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+a:hover, button:hover {
+    background-color: #0099ff;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+form label {
+    font-weight: bold;
+}

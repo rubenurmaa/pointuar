@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Gastos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #1e3a8a;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+            margin-bottom: 40px;
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+            color: #1e293b;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 4px rgba(59,130,246,0.3);
+        }
+
+        button {
+            grid-column: span 2;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #1e40af;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #1e3a8a;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        tr:hover {
+            background-color: #e0e7ff;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .footer-links a {
+            margin: 0 8px;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            color: #4338ca;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Gestión de Gastos</h1>
+
+    <form th:action="@{/gastos/guardar}" th:object="${gasto}" method="post">
+        <div>
+            <label>Nombre del gasto:</label>
+            <input type="text" th:field="*{nomGastos}" required>
+        </div>
+
+        <div>
+            <label>Usuario:</label>
+            <select th:field="*{usuario}">
+                <option th:each="u : ${usuarios}" th:value="${u}" th:text="${u.username}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label>Categoría:</label>
+            <select th:field="*{categoria}">
+                <option th:each="c : ${categorias}" th:value="${c}" th:text="${c.nombre}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label>Gasto Actual (€):</label>
+            <input type="number" step="0.01" th:field="*{gastoActual}" required>
+        </div>
+
+        <div>
+            <label>Gasto Esperado (€):</label>
+            <input type="number" step="0.01" th:field="*{gastoEsperado}" required>
+        </div>
+
+        <button type="submit">💾 Guardar</button>
+    </form>
+
+    <h2>Listado de Gastos</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Categoría</th>
+            <th>Gasto Actual (€)</th>
+            <th>Gasto Esperado (€)</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="g : ${gastos}">
+            <td th:text="${g.nomGastos}"></td>
+            <td th:text="${g.usuario.username}"></td>
+            <td th:text="${g.categoria.nombre}"></td>
+            <td th:text="${g.gastoActual}"></td>
+            <td th:text="${g.gastoEsperado}"></td>
+            <td th:text="${#temporals.format(g.fechaCreacion, 'dd/MM/yyyy')}"></td>
+            <td>
+                <a th:href="@{/gastos/editar/{id}(id=${g.id})}">✏️ Editar</a> |
+                <a th:href="@{/gastos/eliminar/{id}(id=${g.id})}" onclick="return confirm('¿Seguro que quieres eliminar este gasto?')">🗑️ Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="footer-links">
+        <a th:href="@{/categorias}">⚙️ Gestionar Categorías</a> |
+        <a th:href="@{/resumenMensual}">📊 Ver Resumen Mensual</a>
+    </div>
+</div>
+</body>
+</html>

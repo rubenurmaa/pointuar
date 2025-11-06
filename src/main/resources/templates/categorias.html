@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestió de Categories</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #006994, #00aaff);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255,255,255,0.95);
+            padding: 25px 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #004c70;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #004c70;
+        }
+
+        input[type="text"] {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 60%;
+            min-width: 200px;
+        }
+
+        button {
+            background-color: #004c70;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #003852;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #004c70;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            text-align: center;
+            padding: 10px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        a {
+            color: #004c70;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #004c70;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background-color: #003852;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        @media(max-width: 768px){
+            table, thead, tbody, th, td, tr{
+                display: block;
+            }
+            thead tr{ display: none; }
+            tr{
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                padding: 10px;
+            }
+            td{
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            td::before{
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: calc(50% - 20px);
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Gestió de Categories 🗂️</h1>
+
+    <form th:action="@{/categorias/guardar}" th:object="${nuevaCategoria}" method="post">
+        <label>Nom de la Categoria:</label>
+        <input type="text" th:field="*{nombre}" placeholder="Ex: Alimentació" required>
+        <button type="submit">➕ Crear Categoria</button>
+    </form>
+
+    <h2>Categories Existents</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Accions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cat : ${categorias}">
+            <td data-label="Nom" th:text="${cat.nombre}"></td>
+            <td data-label="Accions">
+                <a th:href="@{/categorias/eliminar/{id}(id=${cat.id})}" onclick="return confirm('Eliminar aquesta categoria?')">🗑️ Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="back-link">
+        <a th:href="@{/gastos}" class="button">⬅️ Tornar a Gastos</a>
+    </div>
+</div>
+</body>
+</html>

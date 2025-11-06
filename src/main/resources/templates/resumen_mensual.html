@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>📊 Resumen Mensual</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 28px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin: 12px 0;
+        }
+
+        strong {
+            color: #222;
+        }
+
+        .positivo {
+            color: #2ecc71; /* verde */
+            font-weight: bold;
+        }
+
+        .negativo {
+            color: #e74c3c; /* rojo */
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            background: #007bff;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📊 Resumen del mes de <span th:text="${resumen.mes}"></span></h1>
+
+    <p><strong>Gasto esperado:</strong> <span th:text="${resumen.gastoEsperado}"></span> €</p>
+    <p><strong>Gasto real:</strong> <span th:text="${resumen.gastoReal}"></span> €</p>
+    <p>
+        <strong>Diferencia:</strong> 
+        <span th:classappend="${resumen.gastoEsperado - resumen.gastoReal >= 0} ? 'positivo' : 'negativo'"
+              th:text="${#numbers.formatDecimal(resumen.gastoEsperado - resumen.gastoReal, 1, 2)} + ' €'"></span>
+    </p>
+
+    <a th:href="@{/gastos}">⬅️ Volver a Gastos</a>
+</div>
+</body>
+</html>
