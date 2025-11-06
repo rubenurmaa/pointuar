@@ -20,44 +20,38 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Gastos {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String nomGastos;
-	private LocalDate dataVisita;
+    private String nomGastos;
+    private LocalDate dataVisita;
+    private double gastoMensual;
+    private double gastoActual;
 
-	private double gastoMensual;
-	private double gastoActual;
-	private double gastoEsperado;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
-	private double ahorroTotal;
-	private double ahorroMensual;
+    private String descripcion;
+    private String metodoPago;
+    private String lugar;
 
-	// Nuevos campos
-	@ManyToOne
-	@JoinColumn(name = "categoria_id")
-	private Categoria categoria;
-	
-	private String descripcion;
-	private String metodoPago;
-	private String lugar;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+    private boolean esRecurrente;
 
-	private LocalDate fechaInicio;
-	private LocalDate fechaFin;
-	private boolean esRecurrente;
+    private double presupuestoAsignado;
+    private double desviacion;
+    private boolean pagado;
 
-	private double presupuestoAsignado;
-	private double desviacion;
-	private boolean pagado;
+    private String moneda = "EUR";
+    private boolean activo = true;
+    private LocalDate fechaCreacion = LocalDate.now();
 
-	private String moneda = "EUR";
-	private boolean activo = true;
-	private LocalDate fechaCreacion = LocalDate.now();
-
-	@ManyToOne
-	@JoinColumn(name = "usuario_id")
-	@JsonBackReference
-	private Usuario usuario;
-
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    @JsonBackReference
+    private Usuario usuario;
 }
+

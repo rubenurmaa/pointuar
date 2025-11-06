@@ -8,8 +8,11 @@
         body {
             font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #2196f3, #0d47a1);
-            margin: 0; padding: 20px;
-            display: flex; justify-content: center; align-items: flex-start;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
             min-height: 100vh;
         }
         .container {
@@ -17,50 +20,114 @@
             padding: 20px 30px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            width: 90%; max-width: 1000px;
+            width: 90%;
+            max-width: 1000px;
         }
         h2 {
-            text-align: center; color: #0d47a1; margin-bottom: 20px;
+            text-align: center;
+            color: #0d47a1;
+            margin-bottom: 20px;
         }
-        a.button {
+        a.button, button {
             display: inline-block;
             margin-bottom: 15px;
             padding: 10px 20px;
             background-color: #1565c0;
-            color: white; text-decoration: none;
-            border-radius: 8px; transition: background 0.2s;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
         }
-        a.button:hover { background-color: #0d47a1; }
+        a.button:hover, button:hover {
+            background-color: #0d47a1;
+        }
         table {
-            width: 100%; border-collapse: collapse; margin-top: 10px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
         }
-        table, th, td { border: 1px solid #ddd; }
-        th, td { padding: 10px; text-align: center; font-size: 14px; }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
         th {
             background-color: #1565c0;
-            color: white; cursor: pointer; position: relative;
+            color: white;
+            cursor: pointer;
+            position: relative;
         }
-        th:hover { background-color: #0d47a1; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .message { text-align: center; margin-top: 15px; font-weight: bold; color: #1565c0; }
-        .message.error { color: #c62828; }
+        th:hover {
+            background-color: #0d47a1;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #1565c0;
+        }
+        .message.error {
+            color: #c62828;
+        }
+
+        form.ahorro-form {
+            background: #f3f6fb;
+            border: 1px solid #c5cae9;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        form.ahorro-form label {
+            font-weight: bold;
+            color: #0d47a1;
+        }
+
+        form.ahorro-form input {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #90caf9;
+            width: 120px;
+            text-align: right;
+        }
 
         @media (max-width: 768px) {
-            table, thead, tbody, th, td, tr { display: block; }
-            thead tr { display: none; }
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                display: none;
+            }
             tr {
-                margin-bottom: 15px; border: 1px solid #ccc;
-                border-radius: 8px; padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                padding: 10px;
             }
             td {
-                text-align: right; padding-left: 50%;
+                text-align: right;
+                padding-left: 50%;
                 position: relative;
             }
             td::before {
                 content: attr(data-label);
-                position: absolute; left: 10px;
+                position: absolute;
+                left: 10px;
                 width: calc(50% - 20px);
-                font-weight: bold; text-align: left;
+                font-weight: bold;
+                text-align: left;
             }
         }
     </style>
@@ -68,8 +135,21 @@
 <body>
 <div class="container">
     <h2>💸 Control de Gastos</h2>
-    <a th:href="@{/gastos/nuevo}" class="button">➕ Afegir nou gasto</a>
-    <a th:href="@{/}" class="button">🏠 Tornar a l'inici</a>
+    
+    <div style="text-align: center;">
+        <a th:href="@{/gastos/nuevo}" class="button">➕ Afegir nou gasto</a>
+        <a th:href="@{/}" class="button">🏠 Tornar a l'inici</a>
+        <a th:href="@{/resumenMensual}" class="button">📊 Mi Resumen</a>
+        <a th:href="@{/categorias}" class="button">📂 Crear Categoria</a>
+    </div>
+
+    <!-- 🔹 FORMULARI D’ESTALVI GENERAL -->
+    <form th:if="${ahorro != null}" th:action="@{/gastos/guardarAhorro}" th:object="${ahorro}" method="post" class="ahorro-form">
+        <input type="hidden" th:field="*{id}">
+        <label>Total Ahorro (€):</label>
+        <input type="number" step="0.01" th:field="*{ahorroTotal}" required>
+        <button type="submit">💾 Guardar Ahorro</button>
+    </form>
     <hr>
 
     <table id="gastosTable">
@@ -79,8 +159,6 @@
                 <th>Categoria</th>
                 <th>Data</th>
                 <th>Gasto Actual (€)</th>
-                <th>Gasto Esperat (€)</th>
-                <th>Ahorro (€)</th>
                 <th>Usuari</th>
                 <th>Accions</th>
             </tr>
@@ -88,11 +166,9 @@
         <tbody>
             <tr th:each="g : ${gastos}">
                 <td data-label="Nom" th:text="${g.nomGastos}"></td>
-                <td data-label="Categoria" th:text="${g.categoria}"></td>
-                <td data-label="Data" th:text="${g.dataVisita}"></td>
+                <td data-label="Categoria" th:text="${g.categoria != null ? g.categoria.nombre : '—'}"></td>
+                <td data-label="Data" th:text="${#temporals.format(g.fechaCreacion, 'dd/MM/yyyy')}"></td>
                 <td data-label="Actual (€)" th:text="${#numbers.formatDecimal(g.gastoActual, 1, 2)}"></td>
-                <td data-label="Esperat (€)" th:text="${#numbers.formatDecimal(g.gastoEsperado, 1, 2)}"></td>
-                <td data-label="Ahorro (€)" th:text="${#numbers.formatDecimal(g.ahorroTotal, 1, 2)}"></td>
                 <td data-label="Usuari" th:text="${g.usuario != null ? g.usuario.username : '—'}"></td>
                 <td data-label="Accions">
                     <a th:href="@{'/gastos/editar/' + ${g.id}}" class="button">✏️ Editar</a>

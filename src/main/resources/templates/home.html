@@ -18,12 +18,12 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h2>¡Benvingut! 👋</h2>
-    <p th:text="'Hola, ' + ${username} + '!'"></p>
-    <a th:href="@{/ranking}" class="button">➕ Afegir Ranking Gourmet</a>
-    <a th:href="@{/ranking/list}" class="button">📋 Veure Rankings Existents</a>
-    <a th:href="@{/logout}" class="logout">Tancar sessió</a>
-</div>
+	<div class="container">
+	    <h2>¡Benvingut! 👋</h2>
+	    <p th:text="'Hola, ' + ${username} + '!'"></p>
+	    <a th:href="@{/ranking/list}" class="button">📋 Rankings Existents</a>
+	    <a th:href="@{/gastos}" class="button">💸 Gestió de Gastos</a>
+	    <a th:href="@{/logout}" class="logout">Tancar sessió</a>
+	</div>
 </body>
 </html>
